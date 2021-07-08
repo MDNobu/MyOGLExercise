@@ -4,6 +4,8 @@
 #include "MyWindowInit.h"
 #include "QGLApp.h"
 #include "Shader.h"
+#include "WindowApplication.h"
+#include "QGameApp.h"
 
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -406,7 +408,9 @@ int main()
 {
 	
 	//return HelloIndexedTriangle();
-	return HelloShader();
+
+	QGameApp myGameApp;
+	return WindowApplication::RunApplication(myGameApp);
 }
 
 // process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
