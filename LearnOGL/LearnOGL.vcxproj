@@ -147,6 +147,8 @@
     <ClCompile Include="LearnOGL.cpp" />
     <ClCompile Include="QGameApp.cpp" />
     <ClCompile Include="QGLApp.cpp" />
+    <ClCompile Include="QHelloTriangle.cpp" />
+    <ClCompile Include="QShader.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="WindowApplication.cpp" />
   </ItemGroup>
@@ -156,7 +158,9 @@
     <ClInclude Include="MyWindowInit.h" />
     <ClInclude Include="QGameApp.h" />
     <ClInclude Include="QGLApp.h" />
+    <ClInclude Include="QHelloTriangle.h" />
     <ClInclude Include="QHelper.h" />
+    <ClInclude Include="QShader.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="WindowApplication.h" />
   </ItemGroup>

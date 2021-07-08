@@ -33,6 +33,12 @@
     <ClCompile Include="QGameApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QHelloTriangle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyWindowInit.h">
@@ -57,6 +63,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="QHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QHelloTriangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

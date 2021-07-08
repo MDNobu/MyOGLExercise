@@ -6,7 +6,7 @@
 #include "Shader.h"
 #include "WindowApplication.h"
 #include "QGameApp.h"
-
+#include "QHelloTriangle.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -406,10 +406,8 @@ int HelloShader()
 
 int main()
 {
-	
-	//return HelloIndexedTriangle();
 
-	QGameApp myGameApp;
+	QHelloTriangle myGameApp;
 	return WindowApplication::RunApplication(myGameApp);
 }
 

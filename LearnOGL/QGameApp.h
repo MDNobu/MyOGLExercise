@@ -6,13 +6,13 @@ class QGameApp
 {
 public:
 	void Init();
-	void RenderScene();
-	void ShutDown();
+	virtual void RenderScene();
+	virtual void ShutDown();
+protected:
+	virtual void InitAsset();
 private:
 	void InitPipeline();
 
-	unsigned int shaderProgram;
-	unsigned int VBO;
-	unsigned int VAO;
+
 };
 
