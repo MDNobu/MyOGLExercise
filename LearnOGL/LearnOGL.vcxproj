@@ -146,12 +146,14 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="LearnOGL.cpp" />
     <ClCompile Include="QGLApp.cpp" />
+    <ClCompile Include="Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyHelloTriangle1.h" />
     <ClInclude Include="MyOGLHelp.h" />
     <ClInclude Include="MyWindowInit.h" />
     <ClInclude Include="QGLApp.h" />
+    <ClInclude Include="Shader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
