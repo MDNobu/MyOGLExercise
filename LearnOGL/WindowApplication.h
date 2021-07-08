@@ -6,8 +6,6 @@
 //#include "MyWindowInit.h"
 #include "QGLApp.h"
 #include "Shader.h"
-#include "WindowApplication.h"
-#include "QGameApp.h"
 #include "QGameApp.h"
 
 // 管理窗口的驱动类，变化很小
@@ -24,5 +22,10 @@ public:
 	// glfw: whenever the window size changed (by OS or user resize) this callback function executes
 // ---------------------------------------------------------------------------------------------
 	static void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
+
+	static GLFWwindow* s_Window;
+private:
+	static GLFWwindow* CreateWindowAndInit();
+	static void UpdateApplication(QGameApp& myGameApp);
 };
 

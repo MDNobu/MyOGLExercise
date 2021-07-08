@@ -156,6 +156,7 @@
     <ClInclude Include="MyWindowInit.h" />
     <ClInclude Include="QGameApp.h" />
     <ClInclude Include="QGLApp.h" />
+    <ClInclude Include="QHelper.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="WindowApplication.h" />
   </ItemGroup>
