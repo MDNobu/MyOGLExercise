@@ -8,6 +8,9 @@
 #include "QShader.h"
 //#define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 QHelloTexture::QHelloTexture() : m_QShaderProgram(nullptr)
 {
@@ -28,14 +31,24 @@ void QHelloTexture::RenderScene()
 	//glActiveTexture(GL_TEXTURE1);
 	//glBindTexture(GL_TEXTURE_2D, m_texture2);
 	// render container
+	// 更新constant buffers
 	m_QShaderProgram->Use();
 	m_QShaderProgram->SetInt("texture1", 0);
 	m_QShaderProgram->SetInt("texture2", 1);
 
 	//m_QShaderProgram
+	
 	unsigned int uniformLocal = glGetUniformLocation(m_QShaderProgram->m_ShaderProgramID, "colorTint");
 	glUniform4f(uniformLocal, 1.0f, 0.0f, 0.0f, 1.0f);
 
+	// 更新MVP 矩阵
+	glm::mat4 mvp = glm::mat4(1.0f);
+	glm::mat4 translate = glm::translate(mvp, glm::vec3(0.5f, -0.5f, 0.0f));
+	glm::mat4 rotate = glm::rotate(mvp, static_cast<float>(glfwGetTime()), glm::vec3(0.0f, 0.0f, 1.0f) );
+	using namespace glm;
+	mvp = translate * rotate   * mvp;
+	unsigned int mvpLocation =glGetUniformLocation(m_QShaderProgram->m_ShaderProgramID, "mvp");
+	glUniformMatrix4fv(mvpLocation, 1, GL_FALSE, glm::value_ptr(mvp));
 
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -57,6 +70,14 @@ void QHelloTexture::InitAsset()
 
 	m_QShaderProgram->CreateAndSetup("4.1.texture.vs", "4.1.texture.fs");
 
+	SetupVertexData();
+
+	SetupTextures();
+
+}
+
+void QHelloTexture::SetupVertexData()
+{
 	// set up vertex data (and buffer(s)) and configure vertex attributes
 	// ------------------------------------------------------------------
 	float vertices[] = {
@@ -92,13 +113,16 @@ void QHelloTexture::InitAsset()
 	// texture coord attribute
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 	glEnableVertexAttribArray(2);
+}
 
 
+void QHelloTexture::SetupTextures()
+{
 	// load and create a texture 
 	// -------------------------
 	/*unsigned int texture;*/
 	glGenTextures(1, &texture);
-	
+
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture); // all upcoming GL_TEXTURE_2D operations now have effect on this texture object
 	// set the texture wrapping parameters
@@ -154,5 +178,4 @@ void QHelloTexture::InitAsset()
 	}
 	stbi_image_free(data2);
 #pragma endregion
-
 }

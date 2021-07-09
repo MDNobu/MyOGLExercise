@@ -20,7 +20,11 @@ public:
 protected:
 	virtual void InitAsset() override;
 
+
 private:
+	void SetupVertexData();
+	void SetupTextures();
+
 	unsigned int VBO = 0;
 	unsigned int VAO = 0;
 	unsigned int EBO = 0;

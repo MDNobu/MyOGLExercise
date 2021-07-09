@@ -80,7 +80,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>D:\SoftwarePackage\OpenGLLibs\GLFW3.3.4\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>D:\SoftwarePackage\OpenGLLibs\glm-0.9.9.8\glm;D:\SoftwarePackage\OpenGLLibs\GLFW3.3.4\include;$(IncludePath)</IncludePath>
+    <IncludePath>D:\SoftwarePackage\OpenGLLibs\glm-0.9.9.8;D:\SoftwarePackage\OpenGLLibs\GLFW3.3.4\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
