@@ -25,6 +25,8 @@ private:
 	void SetupVertexData();
 	void SetupTextures();
 
+	void SetupCubeVertexData();
+
 	unsigned int VBO = 0;
 	unsigned int VAO = 0;
 	unsigned int EBO = 0;

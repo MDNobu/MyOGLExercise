@@ -24,6 +24,9 @@ public:
 	static void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
 
 	static GLFWwindow* s_Window;
+
+	static const unsigned int WIDTH = 800;
+	static const unsigned int HEIGHT = 600;
 private:
 	static GLFWwindow* CreateWindowAndInit();
 	static void UpdateApplication(QGameApp& myGameApp);
