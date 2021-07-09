@@ -80,7 +80,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>D:\SoftwarePackage\OpenGLLibs\GLFW3.3.4\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>D:\SoftwarePackage\OpenGLLibs\GLFW3.3.4\include;$(IncludePath)</IncludePath>
+    <IncludePath>D:\SoftwarePackage\OpenGLLibs\glm-0.9.9.8\glm;D:\SoftwarePackage\OpenGLLibs\GLFW3.3.4\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -147,9 +147,11 @@
     <ClCompile Include="LearnOGL.cpp" />
     <ClCompile Include="QGameApp.cpp" />
     <ClCompile Include="QGLApp.cpp" />
+    <ClCompile Include="QHelloTexture.cpp" />
     <ClCompile Include="QHelloTriangle.cpp" />
     <ClCompile Include="QShader.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="StbImage.cpp" />
     <ClCompile Include="WindowApplication.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -158,11 +160,18 @@
     <ClInclude Include="MyWindowInit.h" />
     <ClInclude Include="QGameApp.h" />
     <ClInclude Include="QGLApp.h" />
+    <ClInclude Include="QHelloTexture.h" />
     <ClInclude Include="QHelloTriangle.h" />
     <ClInclude Include="QHelper.h" />
     <ClInclude Include="QShader.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="stb_image.h" />
     <ClInclude Include="WindowApplication.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Textures\awesomeface.png" />
+    <Image Include="Textures\container.jpg" />
+    <Image Include="Textures\wall.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

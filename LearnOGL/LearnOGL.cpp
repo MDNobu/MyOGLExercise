@@ -7,6 +7,7 @@
 #include "WindowApplication.h"
 #include "QGameApp.h"
 #include "QHelloTriangle.h"
+#include "QHelloTexture.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -407,7 +408,8 @@ int HelloShader()
 int main()
 {
 
-	QHelloTriangle myGameApp;
+	//QHelloTriangle myGameApp;
+	QHelloTexture myGameApp;
 	return WindowApplication::RunApplication(myGameApp);
 }
 

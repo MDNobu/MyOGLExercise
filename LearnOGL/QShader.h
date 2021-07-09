@@ -17,8 +17,14 @@ public:
 	{
 		glUniform1f(glGetUniformLocation(m_ShaderProgramID, name.c_str()), value);
 	}
-private:
+
+	void SetInt(const std::string& name, int value) const
+	{
+		glUniform1i(glGetUniformLocation(m_ShaderProgramID, name.c_str()), value);
+	}
 	unsigned int m_ShaderProgramID;
+private:
+	
 
 	void checkCompileErrors(unsigned int shader, std::string type);
 };

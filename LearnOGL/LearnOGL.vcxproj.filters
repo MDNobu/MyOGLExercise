@@ -39,6 +39,12 @@
     <ClCompile Include="QHelloTriangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QHelloTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StbImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyWindowInit.h">
@@ -71,5 +77,22 @@
     <ClInclude Include="QHelloTriangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="QHelloTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Textures\awesomeface.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\container.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\wall.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

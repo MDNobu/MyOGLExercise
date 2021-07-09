@@ -11,6 +11,8 @@
 QHelloTriangle::QHelloTriangle()  : m_QShaderProgram(nullptr)
 {
 	//m_ShaderProgram(nullptr);
+	m_QShaderProgram = std::unique_ptr<QShader>(new QShader());
+
 }
 
 void QHelloTriangle::RenderScene()
@@ -44,13 +46,7 @@ void QHelloTriangle::ShutDown()
 void QHelloTriangle::InitAsset()
 {
 	//m_QShaderProgram = std::make_unique<QShader>(new QShader());
-	m_QShaderProgram = std::unique_ptr<QShader>(new QShader());
-	//m_QShaderProgram = new QShader();
-	m_QShaderProgram->CreateAndSetup("vertexShader.vs", "fragmentShader.fs");
-	//m_QShaderProgram->CreateAndSetup1();
-	m_QShaderProgram->setFloat("offset", 0.5f);
-	//ourShader.setFloat("offset", 0.5f);
-	//m_Shader = new Shader("vertexShader.vs", "fragmentShader.fs");
+	m_QShaderProgram->CreateAndSetup("vertexShader.vs", "fragmentShader.fs");	//ourShader.setFloat("offset", 0.5f);
 
 	// set up vertex data (and buffer(s)) and configure vertex attributes
 	// ------------------------------------------------------------------
