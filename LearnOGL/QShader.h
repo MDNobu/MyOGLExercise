@@ -9,11 +9,11 @@ class QShader
 {
 public:
 	QShader();
+	~QShader();
 
 	bool CreateAndSetup(const char* vsPath, const char* fsPath);
 	void Use() ;
 	void Cleanup() ;
-	void CreateAndSetup1();
 
 
 	void setFloat(const std::string& name, float value) const
@@ -32,9 +32,14 @@ public:
 		glUniformMatrix4fv(matLocation, 1, GL_FALSE, glm::value_ptr(targetMat));
 	}
 
-	unsigned int m_ShaderProgramID;
-private:
+	void setVec3(const std::string& name, float x, float y, float z) const
+	{
+		glUniform3f(glGetUniformLocation(m_ShaderProgramID, name.c_str()), x, y, z);
+	}
 	
+private:
+	unsigned int m_ShaderProgramID;
+	bool m_IsCleaned = false;
 
 	void checkCompileErrors(unsigned int shader, std::string type);
 };

@@ -143,11 +143,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Colors.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="LearnOGL.cpp" />
     <ClCompile Include="QCamera.cpp" />
+    <ClCompile Include="QFPSCamera.cpp" />
     <ClCompile Include="QGameApp.cpp" />
     <ClCompile Include="QGLApp.cpp" />
+    <ClCompile Include="QHelloLight.cpp" />
     <ClCompile Include="QHelloTexture.cpp" />
     <ClCompile Include="QHelloTriangle.cpp" />
     <ClCompile Include="QShader.cpp" />
@@ -162,8 +165,10 @@
     <ClInclude Include="MyOGLHelp.h" />
     <ClInclude Include="MyWindowInit.h" />
     <ClInclude Include="QCamera.h" />
+    <ClInclude Include="QFPSCamera.h" />
     <ClInclude Include="QGameApp.h" />
     <ClInclude Include="QGLApp.h" />
+    <ClInclude Include="QHelloLight.h" />
     <ClInclude Include="QHelloTexture.h" />
     <ClInclude Include="QHelloTriangle.h" />
     <ClInclude Include="QHelper.h" />

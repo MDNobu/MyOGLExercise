@@ -77,5 +77,7 @@ namespace MyWindowInit
 		}
 #pragma endregion
 		glfwTerminate();
+
+		return 0;
 	}
 }

@@ -22,7 +22,6 @@ public:
 	virtual void ShutDown() override;
 
 
-	void TestOutParam(QCamera& testCamera);
 protected:
 	virtual void InitAsset() override;
 
@@ -47,8 +46,6 @@ private:
 	std::unique_ptr<QShader> m_QShaderProgram;
 
 
-	glm::vec3 cameraPos{ 0.0, 0.0, 3.0 };
-	glm::vec3 targetPoint{0.0, 0.0, 0.0};
-	glm::vec3 worldUp{ 0.0, 1.0, 0.0 };
+	
 };
 

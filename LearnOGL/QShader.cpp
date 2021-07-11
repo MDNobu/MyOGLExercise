@@ -14,6 +14,14 @@ QShader::QShader() : m_ShaderProgramID(0)
 
 }
 
+QShader::~QShader()
+{
+	if (!m_IsCleaned)
+	{
+		Cleanup();
+	}
+}
+
 bool QShader::CreateAndSetup(const char* vertexPath, const char* fragmentPath)
 {
 	// 1. retrieve the vertex/fragment source code from filePath
@@ -81,52 +89,9 @@ void QShader::Use()
 void QShader::Cleanup() 
 {
 	glDeleteProgram(m_ShaderProgramID);
+	m_IsCleaned = true;
 }
 
-
-
-void QShader::CreateAndSetup1()
-{
-		// build and compile our shader program
-	// ------------------------------------
-	// vertex shader
-	unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &g_VertexShaderSource, NULL);
-	glCompileShader(vertexShader);
-	// check for shader compile errors
-	int success;
-	char infoLog[512];
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-	}
-	// fragment shader
-	unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &g_FragmentShaderSource, NULL);
-	glCompileShader(fragmentShader);
-	// check for shader compile errors
-	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
-	}
-	// link shaders
-	m_ShaderProgramID = glCreateProgram();
-	glAttachShader(m_ShaderProgramID, vertexShader);
-	glAttachShader(m_ShaderProgramID, fragmentShader);
-	glLinkProgram(m_ShaderProgramID);
-	// check for linking errors
-	glGetProgramiv(m_ShaderProgramID, GL_LINK_STATUS, &success);
-	if (!success) {
-		glGetProgramInfoLog(m_ShaderProgramID, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
-	}
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
-}
 
 // utility function for checking shader compilation/linking errors.
 	// ------------------------------------------------------------------------

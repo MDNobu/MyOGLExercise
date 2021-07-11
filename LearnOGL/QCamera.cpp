@@ -1,10 +1,12 @@
 #include "QCamera.h"
+#include "QFPSCamera.h"
 
 const float QCamera::YAW_INIT = 0.0f;
 const float QCamera::PITCH_INIT = -90.0f;
 
 QCamera::QCamera() 
 {
+
 }
 
 
@@ -39,6 +41,12 @@ glm::mat4 QCamera::GetViewMatrix() const
 	return m_ViewMatrix;
 }
 
+glm::mat4 QCamera::GetProjMatrix() const
+{
+
+	return m_ProjMatrix;
+}
+
 void QCamera::SetPositionAnRefreshViewMat(glm::vec3 eye)
 {
 	m_CameraPosition = eye;
@@ -67,7 +75,8 @@ glm::vec3 QCamera::GetUp() const
 
 QCamera& QCamera::GetInstance()
 {
-	static QCamera camera;
+	//static QCamera camera;
+	static QFPSCamera camera;
 	return camera;
 }
 
@@ -123,6 +132,18 @@ void QCamera::Strafe(float delta)
 {
 	m_CameraPosition += m_Right * delta;
 	m_IsViewMatDirty = true;
+}
+
+void QCamera::SetToDefaultCamera()
+{
+
+	glm::vec3 cameraPos{ 0.0, 0.0, 3.0 };
+	glm::vec3 targetPoint{ 0.0, 0.0, 0.0 };
+	glm::vec3 worldUp{ 0.0, 1.0, 0.0 };
+
+	SetEyeAtUp(cameraPos, targetPoint, worldUp);
+
+	m_ProjMatrix = glm::perspective(glm::radians(45.0f), (float)QCamera::WIDTH / QCamera::HEIGHT, 0.1f, 100.0f);
 }
 
 void QCamera::RefreshViewMatrix()

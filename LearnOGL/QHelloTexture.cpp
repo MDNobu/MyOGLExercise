@@ -8,9 +8,7 @@
 #include "QShader.h"
 //#define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include "QHelper.h"
 #include "WindowApplication.h"
 #include "QCamera.h"
 
@@ -18,9 +16,7 @@ QHelloTexture::QHelloTexture() : m_QShaderProgram(nullptr)
 {
 	m_QShaderProgram = std::unique_ptr<QShader>(new QShader());
 
-	cameraPos = glm::vec3(0.0, 0.0, 3.0);
-	targetPoint = glm::vec3(0.0, 0.0, 0.0);
-	worldUp =  glm::vec3(0.0, 1.0, 0.0);
+
 }
 
 void QHelloTexture::Update(float deltatime)
@@ -53,11 +49,6 @@ void QHelloTexture::RenderScene()
 	m_QShaderProgram->SetInt("texture1", 0);
 	m_QShaderProgram->SetInt("texture2", 1);
 
-	//m_QShaderProgram
-	
-	//unsigned int uniformLocal = glGetUniformLocation(m_QShaderProgram->m_ShaderProgramID, "colorTint");
-	//glUniform4f(uniformLocal, 1.0f, 0.0f, 0.0f, 1.0f);
-
 
 	static glm::vec3 cubePositions[] = {
 		glm::vec3(0.0f,  0.0f,  0.0f),
@@ -84,45 +75,14 @@ void QHelloTexture::RenderScene()
 	vec3 up = camera.GetUp();
 	vec3 right = camera.GetRight();
 	vec3 forward = camera.GetForward();
-	//view = CustomLookAt(cameraPos, targetPoint, worldUp);
-	//view = glm::lookAt(cameraPos, targetPoint, worldUp);
-	//mat4 view = CustomLookAt(vec3(cameraPosition), vec3(0, 0, 0), vec3(0.0f, 1.0f, 0.0f));
-	//mat4 view = translate(identityMat, vec3(0.0f, 0.0f, -5.0f));
-	//mat4 view = translate(identityMat, vec3(1.0f, 0.0f, -5.0f));
-	//view = rotate(view, radians(45.0f), vec3(0, 0, 1.0f));
 	mat4 projMat = glm::perspective(radians(45.0f), (float)WindowApplication::WIDTH / WindowApplication::HEIGHT, 0.1f, 100.0f);
+	projMat = camera.GetProjMatrix();
 	//mat4 projMat = glm::perspective(radians(45.0f), 0.9f, 0.1f, 100.0f);
-
-	//m_QShaderProgram->SetMatrix("view", view);
-	//m_QShaderProgram->SetMatrix("projection", projMat);
-
-	//mat4 modelMat = glm::translate(identityMat, vec3(0.5, 0.5, 0.0));
-
-	////mat4 modelMat = glm::rotate(identityMat, 0.3f * static_cast<float>(glfwGetTime()), vec3(1.0f, 1.0f, 1.0f));
-	////glm::mat4 rotate = glm::rotate(identityMat, static_cast<float>(glfwGetTime()), glm::vec3(0.0f, 0.0f, 1.0f) );
-	///*if ( 0 != i % 3)
-	//{*/
-	////modelMat = rotate(modelMat, 0.3f * static_cast<float>(glfwGetTime()), vec3(1.0f, 1.0f, 1.0f));
-	////}
-	////mat4 projMat = identityMat;
-	//glm::mat4  mvp = projMat * view * modelMat;
-	//m_QShaderProgram->SetMatrix("mvp", mvp);
-
-	////m_QShaderProgram->SetMatrix("model", modelMat);
-	//glDrawArrays(GL_TRIANGLES, 0, 36);
-
 	for (size_t i = 0; i < 10; i++)
 	{
 		// ¸üÐÂMVP ¾ØÕó
 		const auto& elment = cubePositions[i];
 		mat4 modelMat = glm::translate(identityMat, elment);
-		//mat4 modelMat = glm::rotate(identityMat, 0.3f * static_cast<float>(glfwGetTime()), vec3(1.0f, 1.0f, 1.0f));
-		//glm::mat4 rotate = glm::rotate(identityMat, static_cast<float>(glfwGetTime()), glm::vec3(0.0f, 0.0f, 1.0f) );
-		/*if ( 0 != i % 3)
-		{*/
-		//modelMat = rotate(modelMat, 0.3f * static_cast<float>(glfwGetTime()), vec3(1.0f, 1.0f, 1.0f));
-		//}
-		//mat4 projMat = identityMat;
 		glm::mat4  mvp = projMat * view * modelMat;
 		m_QShaderProgram->SetMatrix("mvp", mvp);
 
@@ -145,15 +105,10 @@ void QHelloTexture::ShutDown()
 
 }
 
-void QHelloTexture::TestOutParam(QCamera& testCamera)
-{
 
-}
 
 void QHelloTexture::InitAsset()
 {
-
-	//
 
 	m_QShaderProgram->CreateAndSetup("4.1.texture.vs", "4.1.texture.fs");
 
@@ -161,7 +116,6 @@ void QHelloTexture::InitAsset()
 	SetupCubeVertexData();
 
 	SetupTextures();
-
 }
 
 
@@ -170,10 +124,11 @@ void QHelloTexture::InitGameplay()
 {
 	
 	//QCamera::GetInstance().SetEyeAtUp(cameraPos, targetPoint, worldUp);
-	QCamera::GetInstance().SetEyeAtUp(
-		glm::vec3(0.0, 0.0, 3.0)
-		, glm::vec3(0.0, 0.0, 0.0)
-		, glm::vec3(0.0, 1.0, 0.0));
+	//QCamera::GetInstance().SetEyeAtUp(
+	//	glm::vec3(0.0, 0.0, 3.0)
+	//	, glm::vec3(0.0, 0.0, 0.0)
+	//	, glm::vec3(0.0, 1.0, 0.0));
+	QCamera::GetInstance().SetToDefaultCamera();
 }
 
 void QHelloTexture::SetupVertexData()

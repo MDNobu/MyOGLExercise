@@ -51,6 +51,15 @@
     <ClCompile Include="QTimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QHelloLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QFPSCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyWindowInit.h">
@@ -96,6 +105,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QHelloLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QFPSCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
