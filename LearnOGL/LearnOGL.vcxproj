@@ -145,25 +145,30 @@
   <ItemGroup>
     <ClCompile Include="glad.c" />
     <ClCompile Include="LearnOGL.cpp" />
+    <ClCompile Include="QCamera.cpp" />
     <ClCompile Include="QGameApp.cpp" />
     <ClCompile Include="QGLApp.cpp" />
     <ClCompile Include="QHelloTexture.cpp" />
     <ClCompile Include="QHelloTriangle.cpp" />
     <ClCompile Include="QShader.cpp" />
+    <ClCompile Include="QTimer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="StbImage.cpp" />
     <ClCompile Include="WindowApplication.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="camera.h" />
     <ClInclude Include="MyHelloTriangle1.h" />
     <ClInclude Include="MyOGLHelp.h" />
     <ClInclude Include="MyWindowInit.h" />
+    <ClInclude Include="QCamera.h" />
     <ClInclude Include="QGameApp.h" />
     <ClInclude Include="QGLApp.h" />
     <ClInclude Include="QHelloTexture.h" />
     <ClInclude Include="QHelloTriangle.h" />
     <ClInclude Include="QHelper.h" />
     <ClInclude Include="QShader.h" />
+    <ClInclude Include="QTimer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="WindowApplication.h" />

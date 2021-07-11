@@ -19,14 +19,14 @@ void QGameApp::Init()
 		throw std::runtime_error("glad init failed");
 	}
 
-	InitPipeline();
+	InitGameplay();
 	InitAsset();
 }
 
 void QGameApp::RenderScene()
 {
 	//throw std::logic_error("The method or operation is not implemented.");
-
+	
 
 }
 
@@ -35,7 +35,12 @@ void QGameApp::ShutDown()
 
 }
 
-void QGameApp::InitPipeline()
+void QGameApp::Update(float deltatime)
+{
+
+}
+
+void QGameApp::InitGameplay()
 {
 	
 }

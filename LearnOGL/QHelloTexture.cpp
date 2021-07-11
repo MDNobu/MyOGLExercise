@@ -12,10 +12,21 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "WindowApplication.h"
+#include "QCamera.h"
 
 QHelloTexture::QHelloTexture() : m_QShaderProgram(nullptr)
 {
 	m_QShaderProgram = std::unique_ptr<QShader>(new QShader());
+
+	cameraPos = glm::vec3(0.0, 0.0, 3.0);
+	targetPoint = glm::vec3(0.0, 0.0, 0.0);
+	worldUp =  glm::vec3(0.0, 1.0, 0.0);
+}
+
+void QHelloTexture::Update(float deltatime)
+{
+	QCamera::GetInstance().Update(deltatime);
+
 }
 
 void QHelloTexture::RenderScene()
@@ -63,13 +74,43 @@ void QHelloTexture::RenderScene()
 	using namespace glm;
 	// setting view & projection matrix
 	glm::mat4 identityMat = glm::mat4(1.0f);
-	mat4 view = translate(identityMat, vec3(1.0f, 0.0f, -5.0f));
-	view = rotate(view, radians(45.0f), vec3(0, 0, 1.0f));
+
+	
+	
+	//mat4 view = glm::lookAt(vec3(cameraPosition), vec3(0, 0, 0), vec3(0.0f, 1.0f, 0.0f));
+	//QCamera::GetInstance().SetEyeAtUp(cameraPos, targetPoint, worldUp);
+	QCamera& camera = QCamera::GetInstance();
+	mat4 view = std::move<mat4>(QCamera::GetInstance().GetViewMatrix());
+	vec3 up = camera.GetUp();
+	vec3 right = camera.GetRight();
+	vec3 forward = camera.GetForward();
+	//view = CustomLookAt(cameraPos, targetPoint, worldUp);
+	//view = glm::lookAt(cameraPos, targetPoint, worldUp);
+	//mat4 view = CustomLookAt(vec3(cameraPosition), vec3(0, 0, 0), vec3(0.0f, 1.0f, 0.0f));
+	//mat4 view = translate(identityMat, vec3(0.0f, 0.0f, -5.0f));
+	//mat4 view = translate(identityMat, vec3(1.0f, 0.0f, -5.0f));
+	//view = rotate(view, radians(45.0f), vec3(0, 0, 1.0f));
 	mat4 projMat = glm::perspective(radians(45.0f), (float)WindowApplication::WIDTH / WindowApplication::HEIGHT, 0.1f, 100.0f);
 	//mat4 projMat = glm::perspective(radians(45.0f), 0.9f, 0.1f, 100.0f);
 
 	//m_QShaderProgram->SetMatrix("view", view);
 	//m_QShaderProgram->SetMatrix("projection", projMat);
+
+	//mat4 modelMat = glm::translate(identityMat, vec3(0.5, 0.5, 0.0));
+
+	////mat4 modelMat = glm::rotate(identityMat, 0.3f * static_cast<float>(glfwGetTime()), vec3(1.0f, 1.0f, 1.0f));
+	////glm::mat4 rotate = glm::rotate(identityMat, static_cast<float>(glfwGetTime()), glm::vec3(0.0f, 0.0f, 1.0f) );
+	///*if ( 0 != i % 3)
+	//{*/
+	////modelMat = rotate(modelMat, 0.3f * static_cast<float>(glfwGetTime()), vec3(1.0f, 1.0f, 1.0f));
+	////}
+	////mat4 projMat = identityMat;
+	//glm::mat4  mvp = projMat * view * modelMat;
+	//m_QShaderProgram->SetMatrix("mvp", mvp);
+
+	////m_QShaderProgram->SetMatrix("model", modelMat);
+	//glDrawArrays(GL_TRIANGLES, 0, 36);
+
 	for (size_t i = 0; i < 10; i++)
 	{
 		// ¸üÐÂMVP ¾ØÕó
@@ -77,10 +118,10 @@ void QHelloTexture::RenderScene()
 		mat4 modelMat = glm::translate(identityMat, elment);
 		//mat4 modelMat = glm::rotate(identityMat, 0.3f * static_cast<float>(glfwGetTime()), vec3(1.0f, 1.0f, 1.0f));
 		//glm::mat4 rotate = glm::rotate(identityMat, static_cast<float>(glfwGetTime()), glm::vec3(0.0f, 0.0f, 1.0f) );
-		if ( 0 != i % 3)
-		{
-			modelMat = rotate(modelMat, 0.3f * static_cast<float>(glfwGetTime()), vec3(1.0f, 1.0f, 1.0f));
-		}
+		/*if ( 0 != i % 3)
+		{*/
+		//modelMat = rotate(modelMat, 0.3f * static_cast<float>(glfwGetTime()), vec3(1.0f, 1.0f, 1.0f));
+		//}
 		//mat4 projMat = identityMat;
 		glm::mat4  mvp = projMat * view * modelMat;
 		m_QShaderProgram->SetMatrix("mvp", mvp);
@@ -104,8 +145,15 @@ void QHelloTexture::ShutDown()
 
 }
 
+void QHelloTexture::TestOutParam(QCamera& testCamera)
+{
+
+}
+
 void QHelloTexture::InitAsset()
 {
+
+	//
 
 	m_QShaderProgram->CreateAndSetup("4.1.texture.vs", "4.1.texture.fs");
 
@@ -117,6 +165,16 @@ void QHelloTexture::InitAsset()
 }
 
 
+
+void QHelloTexture::InitGameplay()
+{
+	
+	//QCamera::GetInstance().SetEyeAtUp(cameraPos, targetPoint, worldUp);
+	QCamera::GetInstance().SetEyeAtUp(
+		glm::vec3(0.0, 0.0, 3.0)
+		, glm::vec3(0.0, 0.0, 0.0)
+		, glm::vec3(0.0, 1.0, 0.0));
+}
 
 void QHelloTexture::SetupVertexData()
 {
@@ -282,4 +340,79 @@ void QHelloTexture::SetupCubeVertexData()
 
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
+}
+
+glm::mat4 QHelloTexture::CustomLookAt(glm::vec3 cameraPosition, glm::vec3 targetPoint, glm::vec3 upVector)
+{
+	using namespace glm;
+	mat4 identityMat = glm::identity<glm::mat4>();
+	//mat4 translate = glm::translate(identityMat, (-1.0f) * cameraPosition);
+
+	//vec3 forward = glm::normalize(cameraPosition - targetPoint);
+
+
+	vec3 m_Forward = normalize(targetPoint - cameraPosition);
+	vec3 m_Right = normalize(cross( m_Forward, upVector));
+	vec3 m_Up = cross( m_Right, m_Forward);
+
+	//glm::lookAt();
+	vec3 xAsix = m_Right;
+	vec3 yAxis = m_Up;
+	vec3 zAxis = -m_Forward;
+	vec3 eye = cameraPosition;
+
+
+	mat4 Result = glm::mat4(1.0f);
+	Result[0][0] = xAsix.x;
+	Result[1][0] = xAsix.y;
+	Result[2][0] = xAsix.z;
+	Result[0][1] = yAxis.x;
+	Result[1][1] = yAxis.y;
+	Result[2][1] = yAxis.z;
+	Result[0][2] = zAxis.x;
+	Result[1][2] = zAxis.y;
+	Result[2][2] = zAxis.z;
+	Result[3][0] = -dot(xAsix, eye);
+	Result[3][1] = -dot(yAxis, eye);
+	Result[3][2] = -dot(zAxis, eye);
+	//return Result;
+	//m_ViewMatrix = Result;
+
+	//vec<3, T, Q> const f(normalize(center - eye));
+	//vec<3, T, Q> const s(normalize(cross(f, up)));
+	//vec<3, T, Q> const u(cross(s, f));
+
+	//mat<4, 4, T, Q> Result(1);
+	//Result[0][0] = s.x;
+	//Result[1][0] = s.y;
+	//Result[2][0] = s.z;
+	//Result[0][1] = u.x;
+	//Result[1][1] = u.y;
+	//Result[2][1] = u.z;
+	//Result[0][2] = -f.x;
+	//Result[1][2] = -f.y;
+	//Result[2][2] = -f.z;
+	//Result[3][0] = -dot(s, eye);
+	//Result[3][1] = -dot(u, eye);
+	//Result[3][2] = dot(f, eye);
+
+	//vec<3, T, Q> const f(normalize(center - eye));
+	//vec<3, T, Q> const s(normalize(cross(up, f)));
+	//vec<3, T, Q> const u(cross(f, s));
+
+	//mat<4, 4, T, Q> Result(1);
+	//Result[0][0] = s.x;
+	//Result[1][0] = s.y;
+	//Result[2][0] = s.z;
+	//Result[0][1] = u.x;
+	//Result[1][1] = u.y;
+	//Result[2][1] = u.z;
+	//Result[0][2] = f.x;
+	//Result[1][2] = f.y;
+	//Result[2][2] = f.z;
+	//Result[3][0] = -dot(s, eye);
+	//Result[3][1] = -dot(u, eye);
+	//Result[3][2] = -dot(f, eye);
+
+	return Result;
 }
