@@ -31,6 +31,7 @@ public:
 	void SetToDefaultCamera();
 
 	void RefreshViewMatrix();
+	void MoveUp(float deltaPos);
 private:
 	
 public:

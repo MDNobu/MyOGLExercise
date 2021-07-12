@@ -25,8 +25,6 @@ void WindowApplication::ProcessInput(GLFWwindow* window)
 	if (GLFW_PRESS == glfwGetKey(window, GLFW_KEY_W))
 	{
 		camera.Walk(deltaPos);
-
-		
 	}
 	if (GLFW_PRESS == glfwGetKey(window, GLFW_KEY_S))
 	{
@@ -37,18 +35,33 @@ void WindowApplication::ProcessInput(GLFWwindow* window)
 		//camera.SetPositionAnRefreshViewMat(camera.GetPosition() - camera.GetRight() * cameraMoveSpeed * deltaTime);
 		camera.Strafe(deltaPos);
 
-		std::cout << "Camera right = " << camera.GetRight() << std::endl;
-		std::cout << "Camera position = " << camera.GetPosition() << std::endl;
+		
 	}
 	if (GLFW_PRESS == glfwGetKey(window, GLFW_KEY_A))
 	{
 		camera.Strafe( -deltaPos);
 		//camera.SetPositionAnRefreshViewMat(camera.GetPosition() + camera.GetRight() * cameraMoveSpeed * deltaTime);
 	}
-	
+	if (GLFW_PRESS == glfwGetKey(window, GLFW_KEY_Q))
+	{
+		camera.MoveUp(deltaPos);
+
+		//std::cout << "Camera up = " << camera.GetUp() << std::endl;
+		//std::cout << "Camera position = " << camera.GetPosition() << std::endl;
+	}
+	if (GLFW_PRESS == glfwGetKey(window, GLFW_KEY_E))
+	{
+		camera.MoveUp(-deltaPos);
+
+
+	}
+
 	//std::cout << "Camera position =( " << camera.GetPosition().x << ","
 	//	<< camera.GetPosition().y  << ", "  << camera.GetPosition().z << ")" << std::endl;
-	
+	if (GLFW_PRESS == glfwGetKey(window, GLFW_KEY_R))
+	{
+		camera.SetToDefaultCamera();
+	}
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes

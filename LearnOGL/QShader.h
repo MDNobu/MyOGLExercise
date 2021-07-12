@@ -16,7 +16,7 @@ public:
 	void Cleanup() ;
 
 
-	void setFloat(const std::string& name, float value) const
+	void SetFloat(const std::string& name, float value) const
 	{
 		glUniform1f(glGetUniformLocation(m_ShaderProgramID, name.c_str()), value);
 	}
@@ -26,16 +26,22 @@ public:
 		glUniform1i(glGetUniformLocation(m_ShaderProgramID, name.c_str()), value);
 	}
 
-	void SetMatrix(const std::string& name, const glm::mat4 & targetMat)
+	void SetMatrix(const std::string& name, const glm::mat4 & targetMat) const
 	{
 		unsigned int matLocation = glGetUniformLocation(m_ShaderProgramID, name.c_str());
 		glUniformMatrix4fv(matLocation, 1, GL_FALSE, glm::value_ptr(targetMat));
 	}
 
-	void setVec3(const std::string& name, float x, float y, float z) const
+	void SetVec3(const std::string& name, float x, float y, float z) const
 	{
 		glUniform3f(glGetUniformLocation(m_ShaderProgramID, name.c_str()), x, y, z);
 	}
+	void SetVec3(const std::string& name, glm::vec3 gvec) const
+	{
+		glUniform3f(glGetUniformLocation(m_ShaderProgramID, name.c_str()), 
+			gvec.x, gvec.y, gvec.z);
+	}
+
 	
 private:
 	unsigned int m_ShaderProgramID;

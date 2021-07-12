@@ -75,8 +75,8 @@ glm::vec3 QCamera::GetUp() const
 
 QCamera& QCamera::GetInstance()
 {
-	//static QCamera camera;
-	static QFPSCamera camera;
+	static QCamera camera;
+	//static QFPSCamera camera;
 	return camera;
 }
 
@@ -194,4 +194,10 @@ void QCamera::RefreshViewMatrix()
 		m_IsViewMatDirty = false;
 	}
 
+}
+
+void QCamera::MoveUp(float deltaPos)
+{
+	m_CameraPosition += m_Up * deltaPos;
+	m_IsViewMatDirty = true;
 }
