@@ -39,12 +39,18 @@ private:
 	GPUResourceHandle m_CubeVBO;
 	//GPUResourceHandle m_NonLightVBO;
 	//GPUResourceHandle m_NonLightEBO;
+	GPUResourceHandle m_BaseMap;
+	GPUResourceHandle m_SpecularMap;
+	GPUResourceHandle m_EmissiveMap;
 
 	void CheckAndPrintGLError();
 
 	glm::vec3 UpdateLightPos(float deltatime);
 
 	glm::vec3 m_LightPos{ 0.0f, 0.0f, 0.0f };
+	void SetupTextureResources();
+
+
 };
 
 

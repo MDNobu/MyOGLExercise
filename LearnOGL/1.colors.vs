@@ -1,6 +1,8 @@
 #version 330 core
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec3 aNormalMS;
+layout (location = 2) in vec2 aUVIn;
+
 
 uniform mat4 model;
 uniform mat4 view;
@@ -9,6 +11,7 @@ uniform mat4 mvp;
 
 out vec3 aNormalWS;
 out vec3 aPosWS;
+out vec2 aUV;
 void main()
 {
 	//gl_Position = projection * view * model * vec4(aPos, 1.0);
@@ -19,4 +22,6 @@ void main()
 	aNormalWS = (model * vec4(aNormalMS, 0.0)).xyz;
 
 	aPosWS = (model * vec4(aPos, 1.0)).xyz;
+
+	aUV = aUVIn;
 }
