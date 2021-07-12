@@ -45,6 +45,7 @@ void QHelloLight::ShutDown()
 void QHelloLight::Update(float deltatime)
 {
 	QCamera::GetInstance().Update(deltatime);
+	UpdateLightPos(deltatime);
 }
 
 void QHelloLight::InitAsset()
@@ -173,7 +174,7 @@ void QHelloLight::RenderNonLightObj()
 	m_NonLightShader->SetVec3("objectColor", objectColor);
 	m_NonLightShader->SetVec3("lightColor", lightColor);
 	// 这里先假设 lightDir是这样
-	m_NonLightShader->SetVec3("uLightPosWS", lightPos);
+	m_NonLightShader->SetVec3("uLightPosWS", m_LightPos);
 	m_NonLightShader->SetFloat("shineness", shineness);
 	m_NonLightShader->SetFloat("ambientIntensity", ambientIntensity);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -184,13 +185,13 @@ void QHelloLight::RenderNonLightObj()
 void QHelloLight::RenderLightObj()
 {
 	const glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
-
+	//glm::vec3 newLightPos = UpdateLightPos(1.0f);
 
 	glBindVertexArray(m_LightVAO);
 	m_LightShader->Use();
 	using namespace glm;
 	mat4 identityMat = mat4(1.0f);
-	mat4 model = glm::translate(identityMat, lightPos);
+	mat4 model = glm::translate(identityMat, m_LightPos);
 
 	mat4 view = QCamera::GetInstance().GetViewMatrix();
 	//mat4 projMat = QCamera::GetInstance()
@@ -214,4 +215,17 @@ void QHelloLight::CheckAndPrintGLError()
 	{
 		std::cout << "GLError = " << glGetError() << std::endl;
 	}
+}
+
+glm::vec3 QHelloLight::UpdateLightPos(float deltatime)
+{
+	using namespace glm;
+	const glm::vec3 lightPos = vec3(1.2f, 1.0f, 2.0f);
+	const float roateSpeed = 1.0f;
+	float rotateAngle = glfwGetTime() * roateSpeed;
+	 
+	mat4 roateMat = glm::rotate(glm::identity<mat4>(), rotateAngle, glm::vec3(0.0f, 0.0f, - 1.0f));
+	vec3 resLightPos = vec3( roateMat * vec4(lightPos, 1.0f) );
+	m_LightPos = resLightPos;
+	return resLightPos;
 }

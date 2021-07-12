@@ -41,5 +41,10 @@ private:
 	//GPUResourceHandle m_NonLightEBO;
 
 	void CheckAndPrintGLError();
+
+	glm::vec3 UpdateLightPos(float deltatime);
+
+	glm::vec3 m_LightPos{ 0.0f, 0.0f, 0.0f };
 };
+
 
