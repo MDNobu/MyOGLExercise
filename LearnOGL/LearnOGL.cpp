@@ -11,14 +11,14 @@
 #include "QHelloLight.h"
 
 
-int main()
-{
-
-	//QHelloTriangle myGameApp;
-	//QHelloTexture myGameApp;
-	QHelloLight myGameApp;
-	return WindowApplication::RunApplication(myGameApp);
-}
+//int main()
+//{
+//
+//	//QHelloTriangle myGameApp;
+//	//QHelloTexture myGameApp;
+//	QHelloLight myGameApp;
+//	return WindowApplication::RunApplication(myGameApp);
+//}
 
 
 

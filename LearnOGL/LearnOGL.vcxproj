@@ -79,7 +79,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>D:\SoftwarePackage\OpenGLLibs\GLFW3.3.4\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>D:\SoftwarePackage\OpenGLLibs\assimp-5.0.0\lib\Debug;D:\SoftwarePackage\OpenGLLibs\GLFW3.3.4\lib;$(LibraryPath)</LibraryPath>
     <IncludePath>D:\SoftwarePackage\OpenGLLibs\assimp-5.0.0\include;D:\SoftwarePackage\OpenGLLibs\glm-0.9.9.8;D:\SoftwarePackage\OpenGLLibs\GLFW3.3.4\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -123,7 +123,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -146,6 +146,7 @@
     <ClCompile Include="Colors.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="LearnOGL.cpp" />
+    <ClCompile Include="model_loading.cpp" />
     <ClCompile Include="QCamera.cpp" />
     <ClCompile Include="QFPSCamera.cpp" />
     <ClCompile Include="QGameApp.cpp" />
@@ -163,6 +164,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
+    <ClInclude Include="mesh.h" />
+    <ClInclude Include="model.h" />
     <ClInclude Include="MyHelloTriangle1.h" />
     <ClInclude Include="MyOGLHelp.h" />
     <ClInclude Include="MyWindowInit.h" />
