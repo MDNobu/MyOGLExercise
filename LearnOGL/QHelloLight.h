@@ -29,6 +29,8 @@ private:
 
 	std::unique_ptr<QShader> m_LightShader;
 	std::unique_ptr<QShader> m_NonLightShader;
+	std::unique_ptr<QLight> m_QLight;
+	
 
 	using GPUResourceHandle = unsigned int;
 	GPUResourceHandle m_LightVAO;
@@ -45,9 +47,8 @@ private:
 
 	void CheckAndPrintGLError();
 
-	glm::vec3 UpdateLightPos(float deltatime);
+	void UpdateLightPos(float deltatime);
 
-	glm::vec3 m_LightPos{ 0.0f, 0.0f, 0.0f };
 	void SetupTextureResources();
 
 

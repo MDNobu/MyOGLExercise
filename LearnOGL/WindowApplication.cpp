@@ -53,7 +53,6 @@ void WindowApplication::ProcessInput(GLFWwindow* window)
 	{
 		camera.MoveUp(-deltaPos);
 
-
 	}
 
 	//std::cout << "Camera position =( " << camera.GetPosition().x << ","
@@ -77,11 +76,16 @@ void WindowApplication::FramebufferSizeCallback(GLFWwindow* window, int width, i
 
 void WindowApplication::mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
-	// TODO 这里有一个问题，mouse不仅需要按下，还需要已经持续一段时间，或者说按住，才往后进行
-	if (!s_IsMouseButtonDown)
+
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
 	{
 		return;
 	}
+	// TODO 这里有一个问题，mouse不仅需要按下，还需要已经持续一段时间，或者说按住，才往后进行
+	/*if (!s_IsMouseButtonDown)
+	{
+		return;
+	}*/
 	if (s_IsFirstTimeMouseIn)
 	{
 		s_MouseLastX = xpos;
@@ -92,12 +96,21 @@ void WindowApplication::mouse_callback(GLFWwindow* window, double xpos, double y
 
 	const float sensitivity = 0.1f;
 	QCamera& camera = QCamera::GetInstance();
-	float deltaPitch = (ypos - s_MouseLastY) * sensitivity;
-	float deltaYaw = (xpos - s_MouseLastX) * sensitivity;
+	float mouseMoveX = (xpos - s_MouseLastX);
+	float mouseMoveY = (ypos - s_MouseLastY);
+	float deltaPitch = mouseMoveY   * sensitivity;
+	float deltaYaw = mouseMoveX * sensitivity;
 	
-
-	camera.AddPitch(deltaPitch);
-	camera.AddYaw(deltaYaw);
+	bool test1 = abs(mouseMoveX) < 1.0f;
+	bool test2 = abs(mouseMoveY) < 1.0f;
+	bool test3 = test1 && test2;
+	// 如果deltaPitch/deltaYaw 太大，可能造成闪移，所以忽略
+	if ( test3);
+	{
+		camera.AddPitch(deltaPitch);
+		camera.AddYaw(deltaYaw);
+	}
+	
 
 	s_MouseLastX = xpos;
 	s_MouseLastY = ypos;

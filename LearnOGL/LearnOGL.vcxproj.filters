@@ -60,6 +60,12 @@
     <ClCompile Include="QFPSCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QMesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyWindowInit.h">
@@ -111,6 +117,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="QFPSCamera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QMesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

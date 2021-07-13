@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include "QHelper.h"
 
 extern const char* g_VertexShaderSource;
 extern const char* g_FragmentShaderSource;
@@ -79,7 +80,7 @@ bool QShader::CreateAndSetup(const char* vertexPath, const char* fragmentPath)
 	return true;
 }
 
-void QShader::Use() 
+void QShader::Use() const
 {
 	//throw std::logic_error("The method or operation is not implemented.");
 	glUseProgram(m_ShaderProgramID);
@@ -92,6 +93,37 @@ void QShader::Cleanup()
 	m_IsCleaned = true;
 }
 
+
+void QShader::SetupLightUniforms(const QLight& light)
+{
+
+	// TODO  这里 gpu的light对象是一个写死不能扩展的，后续考虑更新
+	SetInt("lightObj.LightType", static_cast<int>(light.m_LightType));
+	SetFloat("lightObj.Intensity", light.m_Intensity);
+	SetVec3("lightObj.Color", light.m_Color);
+
+	switch (light.m_LightType)
+	{
+	case QLight::QLightType::DirectionalLight:
+		SetVec3("lightObj.DirectionWS", light.m_Direction);
+		break;
+	case QLight::QLightType::PointLight:
+		SetVec3("lightObj.PositionWS", light.m_Pos);
+		SetFloat("lightObj.FalloffStart", light.m_FalloffStart);
+		SetFloat("lightObj.FalloffEnd", light.m_FalloffEnd);
+		break;
+	case QLight::QLightType::SpotLight:
+		SetVec3("lightObj.DirectionWS", light.m_Direction);
+		SetFloat("lightObj.FalloffStart", light.m_FalloffStart);
+		SetFloat("lightObj.FalloffEnd", light.m_FalloffEnd);
+		SetFloat("lightObj.SpotPower", light.SpotPower);
+		break;
+	default:
+		assert(false);
+		break;
+	}
+	QHelper::CheckAndPrintGLError();
+}
 
 // utility function for checking shader compilation/linking errors.
 	// ------------------------------------------------------------------------

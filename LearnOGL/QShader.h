@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "QLight.h"
 
 class QShader
 {
@@ -12,7 +13,7 @@ public:
 	~QShader();
 
 	bool CreateAndSetup(const char* vsPath, const char* fsPath);
-	void Use() ;
+	void Use()  const;
 	void Cleanup() ;
 
 
@@ -42,7 +43,7 @@ public:
 			gvec.x, gvec.y, gvec.z);
 	}
 
-	
+	void SetupLightUniforms(const QLight& light);
 private:
 	unsigned int m_ShaderProgramID;
 	bool m_IsCleaned = false;
