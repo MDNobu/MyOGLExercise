@@ -69,6 +69,12 @@
     <ClCompile Include="Colors.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QHelloModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyWindowInit.h">
@@ -132,6 +138,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QHelloModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

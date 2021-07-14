@@ -125,6 +125,20 @@ void QShader::SetupLightUniforms(const QLight& light)
 	QHelper::CheckAndPrintGLError();
 }
 
+void QShader::SetupCameraUniforms(const QCamera& camera) const
+{
+	using namespace glm;
+	mat4 view = camera.GetViewMatrix();
+	mat4 proj = camera.GetProjMatrix();
+	//mat4 mvp = proj * view * model;
+	//myShader.SetMatrix("model", model);
+	//SetMatrix("mvp", mvp);
+	SetMatrix("view", camera.GetViewMatrix());
+	SetMatrix("projection", camera.GetProjMatrix());
+	mat4 viewProj = camera.GetProjMatrix() * camera.GetViewMatrix();
+	SetMatrix("viewProjection", viewProj);
+}
+
 // utility function for checking shader compilation/linking errors.
 	// ------------------------------------------------------------------------
 void QShader::checkCompileErrors(unsigned int shader, std::string type)

@@ -9,16 +9,17 @@
 #include "QHelloTriangle.h"
 #include "QHelloTexture.h"
 #include "QHelloLight.h"
+#include "QHelloModel.h"
 
+int main()
+{
 
-//int main()
-//{
-//
-//	//QHelloTriangle myGameApp;
-//	//QHelloTexture myGameApp;
-//	QHelloLight myGameApp;
-//	return WindowApplication::RunApplication(myGameApp);
-//}
+	//QHelloTriangle myGameApp;
+	//QHelloTexture myGameApp;
+	//QHelloLight myGameApp;
+	QHelloModel myGameApp;
+	return WindowApplication::RunApplication(myGameApp);
+}
 
 
 

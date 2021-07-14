@@ -14,7 +14,7 @@ public:
 	};
 
 public:
-	
+	static QLight CreateTestLight();
 
 public:
 	QLightType m_LightType = QLightType::DirectionalLight;
@@ -36,5 +36,6 @@ public:
 	float SpotPower = 1.0f;
 #pragma endregion SpotLight Only
 	 
+
 };
 

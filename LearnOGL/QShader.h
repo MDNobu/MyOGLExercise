@@ -5,6 +5,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "QLight.h"
+#include "QCamera.h"
 
 class QShader
 {
@@ -27,6 +28,7 @@ public:
 		glUniform1i(glGetUniformLocation(m_ShaderProgramID, name.c_str()), value);
 	}
 
+
 	void SetMatrix(const std::string& name, const glm::mat4 & targetMat) const
 	{
 		unsigned int matLocation = glGetUniformLocation(m_ShaderProgramID, name.c_str());
@@ -44,6 +46,8 @@ public:
 	}
 
 	void SetupLightUniforms(const QLight& light);
+
+	void SetupCameraUniforms(const QCamera& camera)  const;
 private:
 	unsigned int m_ShaderProgramID;
 	bool m_IsCleaned = false;

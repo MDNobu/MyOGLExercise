@@ -15,6 +15,7 @@
 //private:
 //	const HRESULT m_hr;
 //};
+#define  OUT 
 
 inline void ThrowIfFailed(void* hr)
 {
@@ -23,6 +24,7 @@ inline void ThrowIfFailed(void* hr)
 		throw std::runtime_error("pointer is null");
 	}
 }
+
 
 
 inline std::ostream& operator<< (std::ostream& outStream, glm::vec3 myVec)

@@ -152,10 +152,12 @@
     <ClCompile Include="QGameApp.cpp" />
     <ClCompile Include="QGLApp.cpp" />
     <ClCompile Include="QHelloLight.cpp" />
+    <ClCompile Include="QHelloModel.cpp" />
     <ClCompile Include="QHelloTexture.cpp" />
     <ClCompile Include="QHelloTriangle.cpp" />
     <ClCompile Include="QLight.cpp" />
     <ClCompile Include="QMesh.cpp" />
+    <ClCompile Include="QModel.cpp" />
     <ClCompile Include="QShader.cpp" />
     <ClCompile Include="QTimer.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -174,11 +176,13 @@
     <ClInclude Include="QGameApp.h" />
     <ClInclude Include="QGLApp.h" />
     <ClInclude Include="QHelloLight.h" />
+    <ClInclude Include="QHelloModel.h" />
     <ClInclude Include="QHelloTexture.h" />
     <ClInclude Include="QHelloTriangle.h" />
     <ClInclude Include="QHelper.h" />
     <ClInclude Include="QLight.h" />
     <ClInclude Include="QMesh.h" />
+    <ClInclude Include="QModel.h" />
     <ClInclude Include="QShader.h" />
     <ClInclude Include="QTimer.h" />
     <ClInclude Include="Shader.h" />

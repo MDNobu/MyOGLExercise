@@ -152,32 +152,7 @@ void QHelloLight::InitGameplay()
 {
 	QCamera::GetInstance().SetToDefaultCamera();
 
-	using glm::vec3;
-#pragma region lightSettings
-	const glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
-	const glm::vec3 objectColor = glm::vec3(1.0f, 0.5f, 0.31f);
-	const glm::vec3 lightPos = vec3(1.2f, 1.0f, 2.0f);
-	const vec3 lightDir = vec3(0.1f, -1.0f, -1.0f);
-	const float shineness = 3.0f;
-	const float ambientIntensity = 0.5f;
-	const float intensity = 1.0f;
-	const float falloffStart = 0.0f;
-	const float falloffEnd = 10000.0f;
-	const float spotPower = 1.0f;
-#pragma endregion lightSettings
-
-	m_QLight->m_Intensity = intensity;
-	m_QLight->m_Color = lightColor;
-
-	m_QLight->m_Direction = lightDir;
-
-	m_QLight->m_Pos = lightPos;
-	m_QLight->m_FalloffStart = falloffStart;
-	m_QLight->m_FalloffEnd = falloffEnd;
-
-	m_QLight->SpotPower = spotPower;
-
-	m_QLight->m_LightType = QLight::QLightType::DirectionalLight;
+	m_QLight = std::unique_ptr<QLight>(new QLight(QLight::CreateTestLight()));
 	//m_QLight->m_LightType = QLight::QLightType::PointLight;
 	//m_QLight->m_LightType = QLight::QLightType::SpotLight;
 }

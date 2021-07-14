@@ -1,11 +1,16 @@
 #include "QMesh.h"
 #include "QCamera.h"
 
+const QTexture::TextureType QTexture::DIFFUSE = "texture_diffuse";
+const QTexture::TextureType QTexture::SPECULAR = "texture_specular";
+const QTexture::TextureType QTexture::NORMAL = "texture_normal";
+const QTexture::TextureType QTexture::HEIGHT = "texture_height";
+
 QMesh::QMesh(const std::vector<QVertex>& vertices, 
 	const std::vector<unsigned int>& indices, const std::vector<QTexture>& textures) : 
 	m_Vertices(vertices), m_Indices(indices), m_Textures(textures)
 {
-	
+	SetupGPUResources();
 }
 
 QMesh::~QMesh()
@@ -13,11 +18,11 @@ QMesh::~QMesh()
 
 }
 
-void QMesh::Draw(const QShader& myShader)
+void QMesh::Draw(const QShader& myShader) const
 {
 	assert(m_IsGPUResourcesSetted, "you must setup gpu resource first");
 
-	glBindVertexArray(m_VAO);
+	
 	myShader.Use();
 
 #pragma region updateShaderUniforms
@@ -27,37 +32,68 @@ void QMesh::Draw(const QShader& myShader)
 	mat4 view = QCamera::GetInstance().GetViewMatrix();
 	mat4 proj = QCamera::GetInstance().GetProjMatrix();
 	mat4 mvp = proj * view * model;
-	myShader.SetMatrix("model", model);
+	//myShader.SetMatrix("model", model);
 	myShader.SetMatrix("mvp", mvp);
 
-	// TODO 光照设置常量先直接放在这里，后续添加light对象之后移过去
-#pragma region lightSettings
-	const glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
-	const glm::vec3 objectColor = glm::vec3(1.0f, 0.5f, 0.31f);
-	const glm::vec3 lightPos = vec3(1.2f, 1.0f, 2.0f);
-	const float shineness = 3.0f;
-	const float ambientIntensity = 0.5f;
-#pragma endregion lightSettings
-	myShader.SetVec3("objectColor", objectColor);
-	myShader.SetVec3("lightColor", lightColor);
-	// 这里先假设 lightDir是这样
-	//myShader.SetVec3("uLightPosWS", m_LightPos);
+//#pragma region lightSettings
+//	const glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
+//	const glm::vec3 objectColor = glm::vec3(1.0f, 0.5f, 0.31f);
+//	const glm::vec3 lightPos = vec3(1.2f, 1.0f, 2.0f);
+//	const float shineness = 3.0f;
+//	const float ambientIntensity = 0.5f;
+//#pragma endregion lightSettings
+//	//myShader.SetVec3("objectColor", objectColor);
+//	//myShader.SetVec3("lightColor", lightColor);
+//	//// 这里先假设 lightDir是这样
+//	////myShader.SetVec3("uLightPosWS", m_LightPos);
 
-	myShader.SetFloat("ambientIntensity", ambientIntensity);
+	//myShader.SetFloat("ambientIntensity", ambientIntensity);
 
-	myShader.SetFloat("cubeMaterial.shineness", shineness);
+	//myShader.SetFloat("cubeMaterial.shineness", shineness);
 
-	//m_NonLightShader->SetS
-	myShader.SetInt("cubeMaterial.baseColorMap", 0);
-	myShader.SetInt("cubeMaterial.specularMap", 1);
-	myShader.SetInt("cubeMaterial.emissiveMap", 2);
+	////m_NonLightShader->SetS
+	//myShader.SetInt("cubeMaterial.baseColorMap", 0);
+	//myShader.SetInt("cubeMaterial.specularMap", 1);
+	//myShader.SetInt("cubeMaterial.emissiveMap", 2);
 #pragma endregion
 
+#pragma region 设置textures
+	unsigned int diffuseNr = 0;
+	unsigned int specularNr = 0;
+	unsigned int normalNr = 0;
+	unsigned int heightNr = 0;
 
+	using std::string;
+	for (size_t i = 0; i < m_Textures.size(); i++)
+	{
+		glActiveTexture(GL_TEXTURE0 + i);
 
+		const QTexture& curTexture = m_Textures[i];
+		string textureIndex;
+		if (QTexture::DIFFUSE == curTexture.m_Type)
+		{
+			textureIndex = std::to_string(diffuseNr++);
+		} else if (QTexture::SPECULAR == curTexture.m_Type)
+		{
+			textureIndex = std::to_string(specularNr++);
+		} else if (QTexture::NORMAL == curTexture.m_Type)
+		{
+			textureIndex = std::to_string(normalNr++);
+		} else if (QTexture::HEIGHT == curTexture.m_Type)
+		{
+			textureIndex = std::to_string(heightNr++);
+		}
+		
+		myShader.SetInt(string(QTexture::DIFFUSE) + textureIndex, i);
+
+		glBindTexture(GL_TEXTURE_2D, curTexture.m_ID);
+	}
+#pragma endregion 设置textures
+	glBindVertexArray(m_VAO);
 	glDrawElements(GL_TRIANGLES, m_Indices.size(), GL_UNSIGNED_INT, (void*)0);
 	glBindVertexArray(0);
 
+	glActiveTexture(GL_TEXTURE0);
 }
 
 void QMesh::SetupGPUResources()
