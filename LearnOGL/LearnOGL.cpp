@@ -12,16 +12,16 @@
 #include "QHelloModel.h"
 #include "QAdanceOGL.h"
 
-int main()
-{
-
-	//QHelloTriangle myGameApp;
-	//QHelloTexture myGameApp;
-	//QHelloLight myGameApp;
-	//QHelloModel myGameApp;
-	QAdanceOGL myGameApp;
-	return WindowApplication::RunApplication(myGameApp);
-}
+//int main()
+//{
+//
+//	//QHelloTriangle myGameApp;
+//	//QHelloTexture myGameApp;
+//	//QHelloLight myGameApp;
+//	//QHelloModel myGameApp;
+//	QAdanceOGL myGameApp;
+//	return WindowApplication::RunApplication(myGameApp);
+//}
 
 
 

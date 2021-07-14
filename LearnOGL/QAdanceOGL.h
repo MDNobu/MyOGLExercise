@@ -12,12 +12,6 @@ class QAdanceOGL :
 public:
 	virtual void RenderScene() override;
 
-	
-
-
-
-
-
 
 	virtual void ShutDown() override;
 
@@ -33,6 +27,9 @@ protected:
 private:
 	void DrawPlane(const QShader& shader) const;
 	void Draw2Cubes(const QShader& shader, const glm::mat4& scaleMat) const;
+
+	void DrawOutlineCubes();
+	void DrawTransparentPlanes(const QShader& shader);
 private:
 	QShader m_NormalShader;
 	QShader m_OutlineShader;
@@ -41,8 +38,11 @@ private:
 	GPUResourceHandle m_CubeVBO = 0;
 	GPUResourceHandle m_PlaneVAO = 0;
 	GPUResourceHandle m_PlaneVBO = 0;
+	GPUResourceHandle m_TransPlaneVAO = 0;
+	GPUResourceHandle m_TransPlaneVBO = 0;
 
 	GPUResourceHandle m_CubeTexture = 0;
 	GPUResourceHandle m_PlaneTexture = 0;
+	GPUResourceHandle m_TranPlaneTexture = 0;
 };
 

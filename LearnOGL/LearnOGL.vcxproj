@@ -143,7 +143,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="blending_sorted.cpp" />
     <ClCompile Include="Colors.cpp" />
+    <ClCompile Include="framebuffers.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="LearnOGL.cpp" />
     <ClCompile Include="model_loading.cpp" />

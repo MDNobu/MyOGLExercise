@@ -14,6 +14,8 @@ protected:
 	virtual void InitAsset();
 
 	virtual void InitGameplay();
+
+
 private:
 	
 
