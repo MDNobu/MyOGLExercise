@@ -48,4 +48,7 @@ namespace QHelper
 			throw std::runtime_error(s);
 		}
 	}
+
+	GPUResourceHandle LoadTextureAndUpload2GPU(const std::string& filePath);
+
 }

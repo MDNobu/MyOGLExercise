@@ -147,6 +147,7 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="LearnOGL.cpp" />
     <ClCompile Include="model_loading.cpp" />
+    <ClCompile Include="QAdanceOGL.cpp" />
     <ClCompile Include="QCamera.cpp" />
     <ClCompile Include="QFPSCamera.cpp" />
     <ClCompile Include="QGameApp.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="QHelloModel.cpp" />
     <ClCompile Include="QHelloTexture.cpp" />
     <ClCompile Include="QHelloTriangle.cpp" />
+    <ClCompile Include="QHelper.cpp" />
     <ClCompile Include="QLight.cpp" />
     <ClCompile Include="QMesh.cpp" />
     <ClCompile Include="QModel.cpp" />
@@ -171,6 +173,7 @@
     <ClInclude Include="MyHelloTriangle1.h" />
     <ClInclude Include="MyOGLHelp.h" />
     <ClInclude Include="MyWindowInit.h" />
+    <ClInclude Include="QAdanceOGL.h" />
     <ClInclude Include="QCamera.h" />
     <ClInclude Include="QFPSCamera.h" />
     <ClInclude Include="QGameApp.h" />

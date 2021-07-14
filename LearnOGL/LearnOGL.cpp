@@ -10,6 +10,7 @@
 #include "QHelloTexture.h"
 #include "QHelloLight.h"
 #include "QHelloModel.h"
+#include "QAdanceOGL.h"
 
 int main()
 {
@@ -17,7 +18,8 @@ int main()
 	//QHelloTriangle myGameApp;
 	//QHelloTexture myGameApp;
 	//QHelloLight myGameApp;
-	QHelloModel myGameApp;
+	//QHelloModel myGameApp;
+	QAdanceOGL myGameApp;
 	return WindowApplication::RunApplication(myGameApp);
 }
 

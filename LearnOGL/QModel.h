@@ -31,7 +31,7 @@ private:
 
 	QMesh TransIntoQMesh(aiMesh* mesh, const aiScene* scene);
 
-	GPUResourceHandle LoadTextureAndUpload2GPU(const std::string& filePath);
+	//GPUResourceHandle LoadTextureAndUpload2GPU(const std::string& filePath);
 
 
 	//loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName)

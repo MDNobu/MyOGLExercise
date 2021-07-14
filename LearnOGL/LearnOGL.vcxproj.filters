@@ -75,6 +75,12 @@
     <ClCompile Include="QHelloModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QAdanceOGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyWindowInit.h">
@@ -144,6 +150,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="QHelloModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QAdanceOGL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

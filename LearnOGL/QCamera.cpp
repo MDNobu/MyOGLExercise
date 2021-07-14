@@ -20,18 +20,9 @@ void QCamera::SetEyeAtUp(glm::vec3 eye, glm::vec3 at, glm::vec3 worldUp)
 {
 	m_CameraPosition = eye;
 	using  namespace glm;
-
-
-	//vec<3, T, Q> const f(normalize(center - eye));
-//vec<3, T, Q> const s(normalize(cross(up, f)));
-//vec<3, T, Q> const u(cross(f, s));
 	m_Forward = normalize(at - eye);
 	m_Right = normalize(cross(m_Forward, worldUp));
 	m_Up = cross(m_Right, m_Forward);
-	//RefreshViewMatrix();
-	//m_ViewMatrix = glm::lookAt(m_CameraPosition, m_TargetPoint, m_UpVector);
-	//RefreshViewMatrix();
-	//m_ViewMatrix = glm::lookAt(m_CameraPosition, m_TargetPoint, m_UpVector);
 	m_IsViewMatDirty = true;
 }
 

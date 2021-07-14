@@ -4,8 +4,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 //#include "MyWindowInit.h"
-#include "QGLApp.h"
-#include "Shader.h"
+//#include "QGLApp.h"
+#include "QCamera.h"
 
 void QGameApp::Init()
 {
@@ -37,12 +37,12 @@ void QGameApp::ShutDown()
 
 void QGameApp::Update(float deltatime)
 {
-
+	QCamera::GetInstance().Update(deltatime);
 }
 
 void QGameApp::InitGameplay()
 {
-	
+	QCamera::GetInstance().SetToDefaultCamera();
 }
 
 void QGameApp::InitAsset()
