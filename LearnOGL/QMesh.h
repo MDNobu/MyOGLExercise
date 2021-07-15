@@ -10,7 +10,6 @@ struct QVertex
 	glm::vec3 m_Tangent;
 	glm::vec3 m_Bitangent;
 	glm::vec2 m_UV;
-
 };
 
 struct QTexture

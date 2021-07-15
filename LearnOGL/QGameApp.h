@@ -2,10 +2,11 @@
 
 //#include "WindowApplication.h"
 
+
 class QGameApp
 {
 public:
-	void Init();
+	void Init(int width, int height);
 	virtual void RenderScene();
 	virtual void ShutDown();
 
@@ -15,6 +16,10 @@ protected:
 
 	virtual void InitGameplay();
 
+	//void 
+protected:
+	int m_Width;
+	int m_Height;
 
 private:
 	

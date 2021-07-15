@@ -151,6 +151,7 @@
     <ClCompile Include="model_loading.cpp" />
     <ClCompile Include="QAdanceOGL.cpp" />
     <ClCompile Include="QCamera.cpp" />
+    <ClCompile Include="QCustomizeRenderable.cpp" />
     <ClCompile Include="QFPSCamera.cpp" />
     <ClCompile Include="QGameApp.cpp" />
     <ClCompile Include="QGLApp.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="QLight.cpp" />
     <ClCompile Include="QMesh.cpp" />
     <ClCompile Include="QModel.cpp" />
+    <ClCompile Include="IQRenderable.cpp" />
     <ClCompile Include="QShader.cpp" />
     <ClCompile Include="QTimer.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -177,6 +179,7 @@
     <ClInclude Include="MyWindowInit.h" />
     <ClInclude Include="QAdanceOGL.h" />
     <ClInclude Include="QCamera.h" />
+    <ClInclude Include="QCustomizeRenderable.h" />
     <ClInclude Include="QFPSCamera.h" />
     <ClInclude Include="QGameApp.h" />
     <ClInclude Include="QGLApp.h" />
@@ -188,6 +191,7 @@
     <ClInclude Include="QLight.h" />
     <ClInclude Include="QMesh.h" />
     <ClInclude Include="QModel.h" />
+    <ClInclude Include="IQRenderable.h" />
     <ClInclude Include="QShader.h" />
     <ClInclude Include="QTimer.h" />
     <ClInclude Include="Shader.h" />

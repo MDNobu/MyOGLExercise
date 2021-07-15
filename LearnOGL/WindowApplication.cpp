@@ -19,7 +19,7 @@ void WindowApplication::ProcessInput(GLFWwindow* window)
 		glfwSetWindowShouldClose(window, true);
 
 	float deltaTime = QTimer::GetInstance().GetDeltaTime();
-	const float cameraMoveSpeed = 0.01f;
+	const float cameraMoveSpeed = 0.005f;
 	QCamera& camera = QCamera::GetInstance();
 	float deltaPos = cameraMoveSpeed * deltaTime;
 	if (GLFW_PRESS == glfwGetKey(window, GLFW_KEY_W))
@@ -173,7 +173,7 @@ GLFWwindow* WindowApplication::CreateWindowAndInit()
 
 	// glfw window creation
 	// --------------------
-	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "LearnOpenGL", NULL, NULL);
 	ThrowIfFailed(window);
 
 	return window;
@@ -200,7 +200,7 @@ int WindowApplication::RunApplication(QGameApp& myGameApp)
 	glfwSetScrollCallback(s_Window, scroll_callback);
 	glfwSetMouseButtonCallback(s_Window, myMouseButton_callback);
 
-	myGameApp.Init();
+	myGameApp.Init(WIDTH, HEIGHT);
 
 	// uncomment this call to draw in wireframe polygons.
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

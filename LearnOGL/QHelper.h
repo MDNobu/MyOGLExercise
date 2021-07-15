@@ -6,6 +6,7 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <vector>
 
 //class HrException : public std::runtime_error
 //{
@@ -50,5 +51,41 @@ namespace QHelper
 	}
 
 	GPUResourceHandle LoadTextureAndUpload2GPU(const std::string& filePath);
+	GPUResourceHandle LoadCubemapAndUpload2GPU(const std::vector<std::string>& cubemapFaces);
 
+	/**
+	 *  这个方法有很严格的限定要求输入是像下面这样的 顶点格式，顶点数目是3的倍数，
+	 *	 	float transparentVertices[] = {
+		// positions         // texture Coords (swapped y coordinates because texture is flipped upside down)
+		0.0f,  0.5f,  0.0f,  0.0f,  0.0f,
+		0.0f, -0.5f,  0.0f,  0.0f,  1.0f,
+		1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
+
+		0.0f,  0.5f,  0.0f,  0.0f,  0.0f,
+		1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
+		1.0f,  0.5f,  0.0f,  1.0f,  0.0f
+		};
+	 */
+	void GenerateStandardVABO(const std::vector<float>& vertices,  OUT GPUResourceHandle* pVAO,OUT GPUResourceHandle* pVBO);
+
+	/** 
+		arraySize 严格来说可以改为直接传内存占用，但这个更令人confusing 
+	*/
+	void GenerateStandardVABO(const float* verticesArray, int arraySize, OUT GPUResourceHandle* pVAO, OUT GPUResourceHandle* pVBO);
+
+
+	/**
+	 *  这个方法有很严格的限定要求输入是像下面这样的 顶点格式，顶点数目是3的倍数，
+	 *	 	float transparentVertices[] = {
+		// positions         // texture Coords (swapped y coordinates because texture is flipped upside down)
+		0.0f,  0.5f,  0.0f,  0.0f,  0.0f,
+		0.0f, -0.5f,  0.0f,  0.0f,  1.0f,
+		1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
+
+		0.0f,  0.5f,  0.0f,  0.0f,  0.0f,
+		1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
+		1.0f,  0.5f,  0.0f,  1.0f,  0.0f
+		};
+	 */
+	void GenerateStandardVABO2(const float* verticesArray, int arraySize, OUT GPUResourceHandle* pVAO, OUT GPUResourceHandle* pVBO);
 }

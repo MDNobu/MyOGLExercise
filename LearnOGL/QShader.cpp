@@ -80,6 +80,7 @@ bool QShader::CreateAndSetup(const char* vertexPath, const char* fragmentPath)
 	return true;
 }
 
+// #TODO 代码中有大量的重复的同一个shader对象的use 可能造成pipeline的overhead ，这里要不要优化??
 void QShader::Use() const
 {
 	//throw std::logic_error("The method or operation is not implemented.");

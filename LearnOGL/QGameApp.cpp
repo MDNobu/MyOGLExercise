@@ -7,9 +7,11 @@
 //#include "QGLApp.h"
 #include "QCamera.h"
 
-void QGameApp::Init()
+void QGameApp::Init(int width, int height)
 {
 	//throw std::logic_error("The method or operation is not implemented.");
+	m_Width = width;
+	m_Height = height;
 
 	// glad: load all OpenGL function pointers
 	// ---------------------------------------
