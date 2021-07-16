@@ -422,3 +422,7 @@ FodyWeavers.xsd
 LearnOGL/backpack/
 LearnOGL/skybox/
 LearnOGL/Textures/blending_transparent_window.png
+LearnOGL/Textures/
+*.png
+*.jpg
+LearnOGL/resources/

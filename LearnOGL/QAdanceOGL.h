@@ -4,6 +4,9 @@
 #include "QShader.h"
 #include "QCamera.h"
 #include "QCustomizeRenderable.h"
+#include "QModel.h"
+//#include "model.h"
+//#include "Shader.h"
 
 class QAdanceOGL :
     public QGameApp
@@ -31,6 +34,7 @@ protected:
 private:
 
 	void InitOldAssets();
+	void InitCubemapSceneAsset();
 	void DrawPlane(const QShader& shader) const;
 	void Draw2Cubes(const QShader& shader, const glm::mat4& scaleMat) const;
 
@@ -40,12 +44,17 @@ private:
 	void RenderWithCustomFrameBuffer();
 	void DrawSkybox(const QShader& shader);
 	void DrawCubeInSkybox(const QShader& shader);
+
+	void DrawWithCubemaps();
+
+	void InitProcedureHouseAsset();
 private:
 	QShader m_NormalShader;
 	QShader m_OutlineShader;
 	QShader m_PPShader;
 	QShader m_SkyboxShader;
 	QShader m_CenterCubeShader;
+	QShader m_ProcedureHouseShader;
 
 	GPUResourceHandle m_CubeVAO = 0;
 	GPUResourceHandle m_CubeVBO = 0;
@@ -65,8 +74,17 @@ private:
 	GPUResourceHandle m_RenderTargetTexture = 0;
 
 	GPUResourceHandle m_Cubemap = 0;
+	
 
 	std::unique_ptr<QCustomizeRenderable> m_CenterCube = 0;
 	std::unique_ptr<QCustomizeRenderable> m_Skybox = 0;
+
+	std::unique_ptr<QCustomizeRenderable> m_ProcedureFlatHouse = 0;
+
+	std::unique_ptr<QModel> m_PackModel = 0;
+	QShader m_PackShader;
+
+	//std::unique_ptr<Model> m_PackModel2 = 0;
+	//std::unique_ptr<Shader> m_PackShader2 = 0;
 };
 

@@ -80,6 +80,82 @@ bool QShader::CreateAndSetup(const char* vertexPath, const char* fragmentPath)
 	return true;
 }
 
+bool QShader::CreateAndSetup(const char* vsPath, const char* fsPath, const char* gsPath)
+{
+	// 1. retrieve the vertex/fragment source code from filePath
+	std::string vertexCode;
+	std::string fragmentCode;
+	std::string geometryCode;
+	std::ifstream vShaderFile;
+	std::ifstream fShaderFile;
+	std::ifstream gShaderFile;
+	// ensure ifstream objects can throw exceptions:
+	vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+	fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+	gShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+	try
+	{
+		// open files
+		vShaderFile.open(vsPath);
+		fShaderFile.open(fsPath);
+		gShaderFile.open(gsPath);
+		std::stringstream vShaderStream, fShaderStream, gShaderStream;
+		// read file's buffer contents into streams
+		vShaderStream << vShaderFile.rdbuf();
+		fShaderStream << fShaderFile.rdbuf();
+		gShaderStream << gShaderFile.rdbuf();
+		// close file handlers
+		vShaderFile.close();
+		fShaderFile.close();
+		gShaderFile.close();
+		// convert stream into string
+		vertexCode = vShaderStream.str();
+		fragmentCode = fShaderStream.str();
+		geometryCode = gShaderStream.str();
+	}
+	catch (std::ifstream::failure& e)
+	{
+		std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
+	}
+	const char* vShaderCode = vertexCode.c_str();
+	const char* fShaderCode = fragmentCode.c_str();
+	const char* gShaderCode = geometryCode.c_str();
+	// 2. compile shaders
+	unsigned int vertex, fragment,geometry;
+	// vertex shader
+	vertex = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vertex, 1, &vShaderCode, NULL);
+	glCompileShader(vertex);
+	checkCompileErrors(vertex, "VERTEX");
+
+	geometry = glCreateShader(GL_GEOMETRY_SHADER);
+	glShaderSource(geometry, 1, &gShaderCode, NULL);
+	glCompileShader(geometry);
+	checkCompileErrors(geometry, "GEOMETRY");
+
+	// fragment Shader
+	fragment = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragment, 1, &fShaderCode, NULL);
+	glCompileShader(fragment);
+	checkCompileErrors(fragment, "FRAGMENT");
+	// shader Program
+	m_ShaderProgramID = glCreateProgram();
+	glAttachShader(m_ShaderProgramID, vertex);
+	glAttachShader(m_ShaderProgramID, fragment);
+	glAttachShader(m_ShaderProgramID, geometry);
+	glLinkProgram(m_ShaderProgramID);
+	checkCompileErrors(m_ShaderProgramID, "PROGRAM");
+	// delete the shaders as they're linked into our program now and no longer necessary
+	glDeleteShader(vertex);
+	glDeleteShader(fragment);
+	//bool gsSuccess = CreateAndBindGemetryShader(gsPath);
+	glDeleteShader(geometry);
+	//return res && gsSuccess;
+	return true;
+}
+
+
+
 // #TODO 代码中有大量的重复的同一个shader对象的use 可能造成pipeline的overhead ，这里要不要优化??
 void QShader::Use() const
 {
@@ -138,6 +214,49 @@ void QShader::SetupCameraUniforms(const QCamera& camera) const
 	SetMatrix("projection", camera.GetProjMatrix());
 	mat4 viewProj = camera.GetProjMatrix() * camera.GetViewMatrix();
 	SetMatrix("viewProjection", viewProj);
+}
+
+bool QShader::CreateAndBindGemetryShader(const char* gsPath)
+{
+	// 1. retrieve the vertex/fragment source code from filePath
+	std::string gsCode;
+	std::ifstream gShaderFile;
+	// ensure ifstream objects can throw exceptions:
+	gShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+	try
+	{
+		// open files
+		gShaderFile.open(gsPath);
+		std::stringstream gShaderStream;
+		// read file's buffer contents into streams
+		gShaderStream << gShaderFile.rdbuf();
+		// close file handlers
+		gShaderFile.close();
+		// convert stream into string
+		gsCode = gShaderStream.str();
+	}
+	catch (std::ifstream::failure& e)
+	{
+		std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
+	}
+	const char* gShaderCode = gsCode.c_str();
+	// 2. compile shaders
+	unsigned int geometry;
+	// vertex shader
+	geometry = glCreateShader(GL_GEOMETRY_SHADER);
+	glShaderSource(geometry, 1, &gShaderCode, NULL);
+	glCompileShader(geometry);
+	checkCompileErrors(geometry, "GEOMETRY");
+
+	// shader Program
+	//m_ShaderProgramID = glCreateProgram();
+	glAttachShader(m_ShaderProgramID, geometry);
+	glLinkProgram(m_ShaderProgramID);
+	checkCompileErrors(m_ShaderProgramID, "PROGRAM");
+	// delete the shaders as they're linked into our program now and no longer necessary
+	glDeleteShader(geometry);
+
+	return true;
 }
 
 // utility function for checking shader compilation/linking errors.

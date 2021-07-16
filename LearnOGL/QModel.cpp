@@ -3,6 +3,7 @@
 
 void QModel::Draw(const QShader& shader) const
 {
+	shader.Use();
 	for (const QMesh& mesh : m_Meshes)
 	{
 		mesh.Draw(shader);
@@ -121,7 +122,7 @@ QMesh QModel::TransIntoQMesh(aiMesh* mesh, const aiScene* scene)
 	// specular: texture_specularN
 	// normal: texture_normalN
 	//material, aiTextureType_AMBIENT, "texture_height"
-	LoadMaterialTextures(material, aiTextureType_DIFFUSE, QTexture::HEIGHT, textures);
+	LoadMaterialTextures(material, aiTextureType_DIFFUSE, QTexture::DIFFUSE, textures);
 	LoadMaterialTextures(material, aiTextureType_SPECULAR, QTexture::SPECULAR, textures);
 	LoadMaterialTextures(material, aiTextureType_HEIGHT, QTexture::NORMAL, textures);
 	LoadMaterialTextures(material, aiTextureType_AMBIENT, QTexture::HEIGHT, textures);

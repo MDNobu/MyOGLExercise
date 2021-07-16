@@ -16,7 +16,7 @@
 
 QAdanceOGL::QAdanceOGL()
 {
-
+	m_PackModel = std::make_unique<QModel>();
 }
 
 void QAdanceOGL::RenderScene()
@@ -26,10 +26,12 @@ void QAdanceOGL::RenderScene()
 	glEnable(GL_DEPTH_TEST);
 	glActiveTexture(GL_TEXTURE0);
 
-	DrawSkybox(m_SkyboxShader);
+	//m_ProcedureFlatHouse->Draw(m_ProcedureHouseShader);
+	m_PackModel->Draw(m_PackShader);
 
-	DrawCubeInSkybox(m_CenterCubeShader);
+	//m_PackModel2->Draw(*m_PackShader2);
 }
+
 
 void QAdanceOGL::Draw2Cubes(const QShader& shader, const glm::mat4& scaleMat = glm::mat4(1.0)) const
 {
@@ -240,6 +242,37 @@ void QAdanceOGL::DrawCubeInSkybox(const QShader& shader)
 
 }
 
+void QAdanceOGL::DrawWithCubemaps()
+{
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
+	glActiveTexture(GL_TEXTURE0);
+
+	DrawSkybox(m_SkyboxShader);
+
+	DrawCubeInSkybox(m_CenterCubeShader);
+}
+
+void QAdanceOGL::InitProcedureHouseAsset()
+{
+	m_ProcedureHouseShader.CreateAndSetup("procedureHouse.vs", "procedureHouse.fs", "procedureHouse.gs");
+
+	float points[] = {
+	-0.5f,  0.5f,0.0f, 1.0f, 0.0f, 0.0f, // top-left
+	 0.5f,  0.5f,0.0f,  0.0f, 1.0f, 0.0f, // top-right
+	 0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-right
+	-0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f  // bottom-left
+	};
+
+	m_ProcedureFlatHouse = std::make_unique<QCustomizeRenderable>(points, sizeof(points) / sizeof(float),
+		QCustomizeRenderable::InitVertexDataType::POS_NORMAL);
+	m_ProcedureFlatHouse->m_PrimitiveType = QCustomizeRenderable::PrimitiveType::POINT;
+
+	glPointSize(10);
+}
+
+
 void QAdanceOGL::InitOldAssets()
 {
 	m_NormalShader.CreateAndSetup("1.1.depth_testing.vs", "1.1.depth_testing.fs");
@@ -397,30 +430,7 @@ void QAdanceOGL::InitOldAssets()
 	InitCustomFramebuffer();
 }
 
-void QAdanceOGL::DrawPlane(const QShader& shader) const
-{
-	//draw plane
-	shader.Use();
-	glBindTexture(GL_TEXTURE_2D, m_PlaneTexture);
-	shader.SetMatrix("model", glm::mat4(1.0f));
-	glBindVertexArray(m_PlaneVAO);
-	glDrawArrays(GL_TRIANGLES, 0, 6);
-	glBindVertexArray(0);
-}
-
-void QAdanceOGL::ShutDown()
-{
-
-}
-
-void QAdanceOGL::Update(float deltatime)
-{
-	QGameApp::Update(deltatime);
-}
-
-
-
-void QAdanceOGL::InitAsset()
+void QAdanceOGL::InitCubemapSceneAsset()
 {
 	// set up vertex data (and buffer(s)) and configure vertex attributes
 // ------------------------------------------------------------------
@@ -514,12 +524,12 @@ void QAdanceOGL::InitAsset()
 	};
 
 	m_CenterCube = std::make_unique<QCustomizeRenderable>(cubeVertices,
-		sizeof(cubeVertices)/sizeof(float), QCustomizeRenderable::InitVertexDataType::POS_NORMAL);
+		sizeof(cubeVertices) / sizeof(float), QCustomizeRenderable::InitVertexDataType::POS_NORMAL);
 
 	m_Skybox = std::make_unique<QCustomizeRenderable>(skyboxVertices,
 		sizeof(skyboxVertices) / sizeof(float), QCustomizeRenderable::InitVertexDataType::POS_ONLY);
 
-	m_SkyboxShader.CreateAndSetup("skybox.vs","skybox.fs");
+	m_SkyboxShader.CreateAndSetup("skybox.vs", "skybox.fs");
 	m_CenterCubeShader.CreateAndSetup("envmap_test.vs", "envmap_test.fs");
 
 	// load textures
@@ -534,6 +544,42 @@ void QAdanceOGL::InitAsset()
 		"textures/skybox/back.jpg",
 	};
 	m_Cubemap = QHelper::LoadCubemapAndUpload2GPU(faces);
+}
+
+void QAdanceOGL::DrawPlane(const QShader& shader) const
+{
+	//draw plane
+	shader.Use();
+	glBindTexture(GL_TEXTURE_2D, m_PlaneTexture);
+	shader.SetMatrix("model", glm::mat4(1.0f));
+	glBindVertexArray(m_PlaneVAO);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+	glBindVertexArray(0);
+}
+
+void QAdanceOGL::ShutDown()
+{
+
+}
+
+void QAdanceOGL::Update(float deltatime)
+{
+	QGameApp::Update(deltatime);
+}
+
+
+
+void QAdanceOGL::InitAsset()
+{
+	//m_PackShader.CreateAndSetup("pack.vs", "pack.fs");
+	m_PackShader.CreateAndSetup("1.model_loading.vs", "1.model_loading.fs");
+	//m_PackModel->LoadModel("resources/objects/nanosuit/nanosuit.obj");
+	m_PackModel->LoadModel("backpack/backpack.obj");
+	//m_PackShader2 = std::make_unique<Shader>("1.model_loading.vs", "1.model_loading.fs");
+	//m_PackModel2 = std::make_unique<Model>("backpack/backpack.obj");
+
+	//m_Shader->CreateAndSetup("1.model_loading.vs", "1.model_loading.fs");
+	//m_Model->LoadModel("backpack/backpack.obj");
 }
 
 void QAdanceOGL::InitGameplay()

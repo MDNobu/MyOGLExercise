@@ -58,10 +58,10 @@ void QMesh::Draw(const QShader& myShader) const
 #pragma endregion
 
 #pragma region …Ë÷√textures
-	unsigned int diffuseNr = 0;
-	unsigned int specularNr = 0;
-	unsigned int normalNr = 0;
-	unsigned int heightNr = 0;
+	unsigned int diffuseNr = 1;
+	unsigned int specularNr = 1;
+	unsigned int normalNr = 1;
+	unsigned int heightNr = 1;
 
 	using std::string;
 	for (size_t i = 0; i < m_Textures.size(); i++)
@@ -69,7 +69,8 @@ void QMesh::Draw(const QShader& myShader) const
 		glActiveTexture(GL_TEXTURE0 + i);
 
 		const QTexture& curTexture = m_Textures[i];
-		string textureIndex;
+		string textureIndex = "0";
+		string name = curTexture.m_Type;
 		if (QTexture::DIFFUSE == curTexture.m_Type)
 		{
 			textureIndex = std::to_string(diffuseNr++);
@@ -84,7 +85,7 @@ void QMesh::Draw(const QShader& myShader) const
 			textureIndex = std::to_string(heightNr++);
 		}
 		
-		myShader.SetInt(string(QTexture::DIFFUSE) + textureIndex, i);
+		myShader.SetInt(name + textureIndex, i);
 
 		glBindTexture(GL_TEXTURE_2D, curTexture.m_ID);
 	}
@@ -128,6 +129,13 @@ void QMesh::SetupGPUResources()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(QVertex), (void*)offsetof(QVertex, m_UV));
 	glEnableVertexAttribArray(2);
 
+
+	// vertex tangent
+	glEnableVertexAttribArray(3);
+	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(QVertex), (void*)offsetof(QVertex, m_Tangent));
+	// vertex bitangent
+	glEnableVertexAttribArray(4);
+	glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(QVertex), (void*)offsetof(QVertex, m_Bitangent));
 
 	//glBindBuffer(GL_ARRAY_BUFFER, 0);
 	//g	lBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);

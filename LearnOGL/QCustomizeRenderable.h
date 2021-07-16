@@ -51,7 +51,14 @@ public:
 		POS_UV,
 		ALL
 	};
+	enum class PrimitiveType
+	{
+		TRIANGLE,
+		POINT,
+		LINE
+	};
 
+	PrimitiveType m_PrimitiveType = PrimitiveType::TRIANGLE;
 public:
 	QCustomizeRenderable(const float* vertexData, unsigned int arraySize, InitVertexDataType type);
 public:
@@ -64,8 +71,7 @@ private:
 	void InitVertexData1(const float* vertexData, unsigned int arraySize, InitVertexDataType type);
 	void InitVertexData2(const float* vertexData, unsigned int arraySize, InitVertexDataType type);
 
-	// 这里统一存QCustomizeVertex， 虽然可能有冗余空间占用，但现在先简化
-	std::vector<QCustomizeVertex> m_Vertices;
+	
 	std::vector<QCustomizeVertex2> m_Vertices2;
 	std::vector<unsigned int> m_Indices;
 
@@ -73,5 +79,11 @@ private:
 	GPUResourceHandle m_VBO = 0;
 	GPUResourceHandle m_EBO = 0;
 	bool m_HasIndices = false;
+
+
+#pragma region Deprecate 实际证明这里用glm::vec3实现有问题
+	// 这里统一存QCustomizeVertex， 虽然可能有冗余空间占用，但现在先简化
+	//std::vector<QCustomizeVertex> m_Vertices;
+#pragma endregion Deprecate 
 };
 

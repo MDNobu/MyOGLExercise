@@ -14,6 +14,9 @@ public:
 	~QShader();
 
 	bool CreateAndSetup(const char* vsPath, const char* fsPath);
+	bool CreateAndSetup(const char* vsPath, const char* fsPath, const char* gsPath);
+	
+
 	void Use()  const;
 	void Cleanup() ;
 
@@ -49,6 +52,8 @@ public:
 
 	void SetupCameraUniforms(const QCamera& camera)  const;
 private:
+	bool CreateAndBindGemetryShader(const char* gsPath);
+
 	unsigned int m_ShaderProgramID;
 	bool m_IsCleaned = false;
 

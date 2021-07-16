@@ -26,10 +26,25 @@ void QCustomizeRenderable::Draw(const QShader& shader)
 	}
 	else
 	{
-		glDrawArrays(GL_TRIANGLES, 0, m_Vertices2.size());
+		switch (m_PrimitiveType)
+		{
+		case QCustomizeRenderable::PrimitiveType::TRIANGLE:
+			glDrawArrays(GL_TRIANGLES, 0, m_Vertices2.size());
+			break;
+		case QCustomizeRenderable::PrimitiveType::POINT:
+			glDrawArrays(GL_POINTS, 0, m_Vertices2.size());
+			//glDrawArrays(GL_POINTS, 0, 4);
+			break;
+		case QCustomizeRenderable::PrimitiveType::LINE:
+			break;
+		default:
+			break;
+		}
+		
 	}
 	glBindVertexArray(0);
 }
+
 
 
 
@@ -72,61 +87,61 @@ void QCustomizeRenderable::Init(const float* vertexData, unsigned int arraySize,
 #endif // _DEBUG
 }
 
-void QCustomizeRenderable::InitVertexData1(const float* vertexData, unsigned int arraySize, InitVertexDataType type)
-{
-#pragma region initVertices
-	using namespace std;
-	using glm::vec3;
-	QCustomizeVertex vertBuffer;
-	switch (type)
-	{
-	case InitVertexDataType::POS_ONLY:
-		assert(arraySize % 3 == 0);
-		for (size_t i = 0; i < arraySize / 3; i++)
-		{
-			vertBuffer.m_Position = vec3(vertexData[i], vertexData[i + 1], vertexData[i + 2]);
-			m_Vertices.push_back(vertBuffer);
-			vertBuffer.Reset();
-		}
-		break;
-	case InitVertexDataType::POS_NORMAL:
-		assert(arraySize % 6 == 0);
-		for (size_t i = 0; i < arraySize / 6; i++)
-		{
-			vertBuffer.m_Position = vec3(vertexData[i], vertexData[i + 1], vertexData[i + 2]);
-			vertBuffer.m_Normal = vec3(vertexData[i + 3], vertexData[i + 4], vertexData[i + 5]);
-			m_Vertices.push_back(vertBuffer);
-			vertBuffer.Reset();
-		}
-		break;
-	case InitVertexDataType::POS_UV:
-		assert(arraySize % 5 == 0);
-		for (size_t i = 0; i < arraySize / 5; i++)
-		{
-			vertBuffer.m_Position = vec3(vertexData[i], vertexData[i + 1], vertexData[i + 2]);
-			vertBuffer.m_UV = glm::vec2(vertexData[i + 3], vertexData[i + 4]);
-			m_Vertices.push_back(vertBuffer);
-			vertBuffer.Reset();
-		}
-		break;
-	case InitVertexDataType::ALL:
-		assert(arraySize % 8 == 0);
-		for (size_t i = 0; i < arraySize / 8; i++)
-		{
-			vertBuffer.m_Position = vec3(vertexData[i], vertexData[i + 1], vertexData[i + 2]);
-			vertBuffer.m_Normal = vec3(vertexData[i + 3], vertexData[i + 4], vertexData[i + 5]);
-			vertBuffer.m_UV = glm::vec2(vertexData[i + 6], vertexData[i + 7]);
-			m_Vertices.push_back(vertBuffer);
-			vertBuffer.Reset();
-		}
-		break;
-	default:
-		break;
-	}
-#pragma endregion initVertices
-
-
-}
+//void QCustomizeRenderable::InitVertexData1(const float* vertexData, unsigned int arraySize, InitVertexDataType type)
+//{
+//#pragma region initVertices
+//	using namespace std;
+//	using glm::vec3;
+//	QCustomizeVertex vertBuffer;
+//	switch (type)
+//	{
+//	case InitVertexDataType::POS_ONLY:
+//		assert(arraySize % 3 == 0);
+//		for (size_t i = 0; i < arraySize / 3; i++)
+//		{
+//			vertBuffer.m_Position = vec3(vertexData[i], vertexData[i + 1], vertexData[i + 2]);
+//			m_Vertices.push_back(vertBuffer);
+//			vertBuffer.Reset();
+//		}
+//		break;
+//	case InitVertexDataType::POS_NORMAL:
+//		assert(arraySize % 6 == 0);
+//		for (size_t i = 0; i < arraySize / 6; i++)
+//		{
+//			vertBuffer.m_Position = vec3(vertexData[i], vertexData[i + 1], vertexData[i + 2]);
+//			vertBuffer.m_Normal = vec3(vertexData[i + 3], vertexData[i + 4], vertexData[i + 5]);
+//			m_Vertices.push_back(vertBuffer);
+//			vertBuffer.Reset();
+//		}
+//		break;
+//	case InitVertexDataType::POS_UV:
+//		assert(arraySize % 5 == 0);
+//		for (size_t i = 0; i < arraySize / 5; i++)
+//		{
+//			vertBuffer.m_Position = vec3(vertexData[i], vertexData[i + 1], vertexData[i + 2]);
+//			vertBuffer.m_UV = glm::vec2(vertexData[i + 3], vertexData[i + 4]);
+//			m_Vertices.push_back(vertBuffer);
+//			vertBuffer.Reset();
+//		}
+//		break;
+//	case InitVertexDataType::ALL:
+//		assert(arraySize % 8 == 0);
+//		for (size_t i = 0; i < arraySize / 8; i++)
+//		{
+//			vertBuffer.m_Position = vec3(vertexData[i], vertexData[i + 1], vertexData[i + 2]);
+//			vertBuffer.m_Normal = vec3(vertexData[i + 3], vertexData[i + 4], vertexData[i + 5]);
+//			vertBuffer.m_UV = glm::vec2(vertexData[i + 6], vertexData[i + 7]);
+//			m_Vertices.push_back(vertBuffer);
+//			vertBuffer.Reset();
+//		}
+//		break;
+//	default:
+//		break;
+//	}
+//#pragma endregion initVertices
+//
+//
+//}
 
 void QCustomizeRenderable::InitVertexData2(const float* vertexData, unsigned int arraySize, InitVertexDataType type)
 {

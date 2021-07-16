@@ -7,11 +7,11 @@ struct QVertex
 {
 	glm::vec3 m_Position;
 	glm::vec3 m_Normal;
+	glm::vec2 m_UV;	
 	glm::vec3 m_Tangent;
 	glm::vec3 m_Bitangent;
-	glm::vec2 m_UV;
 };
-
+	
 struct QTexture
 {
 	GPUResourceHandle m_ID;
